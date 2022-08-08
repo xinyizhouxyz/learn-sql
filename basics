@@ -1,0 +1,80 @@
+SELECT * -- all columns
+  FROM tutorial.us_housing_units
+  
+  
+SELECT year,
+    month,
+    west
+  FROM tutorial.us_housing_units
+  
+SELECT west AS "west reg"
+    FROM tutorial.us_housing_units
+
+
+SELECT west AS West_Region, --results will only return capital letters if you put column names in double quotes
+       south AS South_Region
+  FROM tutorial.us_housing_units
+LIMIT 10
+
+
+SELECT *
+    FROM tutorial.us_housing_units
+    WHERE month=11 & south>1 --notice ordering 
+    
+  
+    
+SELECT year, month, west
+    FROM tutorial.us_housing_units
+    WHERE west>50
+    
+SELECT *
+    FROM tutorial.us_housing_units
+    --WHERE month_name='January'
+    --WHERE month_name>'m' -- words that start w m or later letters
+    WHERE month_name<='l'
+
+--SELECT west+midwest AS west_midwest --aggregation across columns --called "derived columns"
+SELECT *,(west+midwest)*1000 AS west_midwest_unitchanged --all columns & new column
+    FROM tutorial.us_housing_units
+    
+    
+SELECT west,midwest+northeast AS midwest_northeast --all columns & new column
+    FROM tutorial.us_housing_units
+    WHERE west>(midwest+northeast) -- cant use midwest_northeast bc unsaved 
+    
+    
+SELECT west/(west+midwest+northeast+south) AS west_perc,
+    midwest/(west+midwest+northeast+south) AS midwest_perc,
+    northeast/(west+midwest+northeast+south) AS northeast_perc,
+    south/(west+midwest+northeast+south) AS south_perc,
+    year--not necessary
+    FROM tutorial.us_housing_units
+    WHERE year>=2000
+    
+SELECT * FROM tutorial.billboard_top_100_year_end
+
+SELECT *
+  FROM tutorial.billboard_top_100_year_end
+ ORDER BY year DESC, year_rank
+ 
+SELECT *
+  FROM tutorial.billboard_top_100_year_end
+  WHERE "group" LIKE 'Snoop%' --cant be double quote!!
+  --In general, putting double quotes around a word or phrase will indicate that you are referring to that column name. 
+  --"group" appears in quotations above because GROUP is a function
+  -- % represents any character or set of characters. In this case, % is referred to as a "wildcard."
+  --LIKE is case-sensitive
+  --to ignore case: WHERE "group" ILIKE 'snoop%'
+  
+SELECT *
+  FROM tutorial.billboard_top_100_year_end
+ WHERE artist ILIKE 'dr_ke' -- _ (a single underscore) to substitute for an individual character --and no matter where the string appears
+ 
+
+SELECT *
+  FROM tutorial.billboard_top_100_year_end
+ WHERE "group" ILIKE '%ludacris%' -- % at front and end! 
+ 
+SELECT *
+  FROM tutorial.billboard_top_100_year_end
+ WHERE "group" ILIKE 'dj%'
